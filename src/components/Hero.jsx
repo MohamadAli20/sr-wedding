@@ -36,11 +36,11 @@ export default function Hero() {
 
         <div className="hero__date">
 
-          <h2>20</h2>
+          <h2>22</h2>
 
           <div>
 
-            <p>December</p>
+            <p>August</p>
             <p>2026</p>
 
           </div>
