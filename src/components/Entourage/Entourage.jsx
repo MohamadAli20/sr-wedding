@@ -1,0 +1,2 @@
+import './Entourage.css'; const group=[['Principal Sponsors','With love and gratitude, our guiding witnesses'],['Best Man','To be announced'],['Maid of Honor','To be announced'],['Bridesmaids','To be announced'],['Groomsmen','To be announced'],['Little Attendants','Ring Bearer & Flower Girls']];
+export default function Entourage(){return <section className="section entourage"><p className="kicker">Standing with us</p><h2>Our <em>entourage</em></h2><div>{group.map(([role,names])=><article key={role}><h3>{role}</h3><p>{names}</p></article>)}</div></section>}

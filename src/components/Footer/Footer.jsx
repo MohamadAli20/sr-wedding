@@ -1,0 +1,1 @@
+import {FaInstagram} from 'react-icons/fa6'; import './Footer.css'; export default function Footer(){return <footer><p>“Together is a wonderful place to be.”</p><strong>Saifudin <i>&</i> Rea Mae</strong><a href="#home" aria-label="Instagram"><FaInstagram/></a><small>© 2026 · Made with love</small></footer>}
