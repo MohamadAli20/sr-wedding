@@ -1,2 +1,66 @@
-import {useState} from 'react'; import {AnimatePresence,motion} from 'framer-motion'; import {FaXmark} from 'react-icons/fa6'; import './Gallery.css'; const images=['HeroBanner.png','ElegantFloralv1.png','RomanticGarden.png','ElegantFloralv2.png'];
-export default function Gallery(){const [selected,setSelected]=useState(null);return <section id="gallery" className="section gallery"><p className="kicker">A glimpse of us</p><h2>In our <em>favorite place</em></h2><div className="gallery-grid">{images.map((image,i)=><button onClick={()=>setSelected(image)} key={image} aria-label="Open photo"><img src={`/images/${image}`} loading="lazy" alt={`Saifudin and Rea Mae, photo ${i+1}`}/></button>)}</div><AnimatePresence>{selected&&<motion.div className="lightbox" initial={{opacity:0}} animate={{opacity:1}} exit={{opacity:0}} onClick={()=>setSelected(null)} role="dialog" aria-modal="true"><button aria-label="Close image"><FaXmark/></button><motion.img initial={{scale:.92}} animate={{scale:1}} src={`/images/${selected}`} alt="Expanded wedding photo" onClick={e=>e.stopPropagation()}/></motion.div>}</AnimatePresence></section>}
+import {useState} from 'react'; 
+import {AnimatePresence,motion} from 'framer-motion'; 
+import {FaXmark} from 'react-icons/fa6'; 
+import './Gallery.css'; 
+
+const images=[
+    'HeroBanner.png','ElegantFloralv1.png','RomanticGarden.png','ElegantFloralv2.png',
+    'HappyCountAlongTheRoad1.png', 'HappyCountAlongTheRoad2.png', 'HappyCountAlongTheRoad3.png',
+    'HappyCoupleInTheCave1.png', 'HappyCoupleInTheCave2.png'
+];
+
+export default function Gallery() {
+    const [selected, setSelected] = useState(null);
+
+    return (
+        <section id="gallery" className="section gallery">
+            <p className="kicker">A glimpse of us</p>
+            <h2>In our <em>favorite place</em></h2>
+
+            <div className="gallery-grid">
+                {images.map((image, i) => (
+                    <button
+                        key={image}
+                        onClick={() => setSelected(image)}
+                        aria-label="Open photo"
+                    >
+                        <img
+                            src={`/images/${image}`}
+                            loading="lazy"
+                            alt={`Saifudin and Rea Mae, photo ${i + 1}`}
+                        />
+                    </button>
+                ))}
+            </div>
+
+            <AnimatePresence>
+                {selected && (
+                    <motion.div
+                        className="lightbox"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        onClick={() => setSelected(null)}
+                        role="dialog"
+                        aria-modal="true"
+                    >
+                        <button
+                            aria-label="Close image"
+                            onClick={() => setSelected(null)}
+                        >
+                            <FaXmark />
+                        </button>
+
+                        <motion.img
+                            initial={{ scale: 0.92 }}
+                            animate={{ scale: 1 }}
+                            src={`/images/${selected}`}
+                            alt="Expanded wedding photo"
+                            onClick={(e) => e.stopPropagation()}
+                        />
+                    </motion.div>
+                )}
+            </AnimatePresence>
+        </section>
+    );
+}
