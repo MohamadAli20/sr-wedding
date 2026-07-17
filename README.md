@@ -1,16 +1,22 @@
-# React + Vite
+# Wedding website
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+## RSVP backend
 
-Currently, two official plugins are available:
+The React form posts to `/api/rsvp`. Vercel serves that endpoint as a serverless function, which validates the RSVP and appends it to Google Sheets. Google credentials remain on the server.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+### Google setup
 
-## React Compiler
+1. In Google Cloud, create a project, enable the **Google Sheets API**, and create a service account.
+2. Create a JSON key for the service account. Copy its `client_email` and `private_key` values.
+3. Create a spreadsheet with a tab named `RSVPs` (or use another tab name in `GOOGLE_SHEET_TAB`). Add this header row: `Submitted at`, `Name`, `Email`, `Phone`, `Attendance`, `Guests`, `Message`.
+4. Share the spreadsheet with the service account email as an **Editor**.
+5. Copy the spreadsheet ID: the portion between `/d/` and `/edit` in its URL.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+### Vercel deployment
 
-## Expanding the Oxlint configuration
+1. Push this repository to GitHub and import it into Vercel, or deploy it with the Vercel CLI.
+2. Leave the framework preset as **Vite**. The build command is `npm run build` and output directory is `dist`.
+3. In **Project Settings → Environment Variables**, add the four values from `.env.example`. For `GOOGLE_PRIVATE_KEY`, paste the full key with literal `\\n` line breaks.
+4. Deploy. Vercel deploys the frontend and `api/rsvp.js` together; no separate backend host is needed.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+For local testing, put the same values in a private `.env.local` file and run Vercel's local development command so `/api/rsvp` is available.

@@ -1,1 +1,15 @@
-export async function submitRsvp(data){const url=import.meta.env.VITE_GOOGLE_SCRIPT_URL;if(!url)return {local:true};const response=await fetch(url,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(data)});if(!response.ok)throw new Error('Unable to submit your RSVP. Please try again.');return response.json().catch(()=>({success:true}));}
+export async function submitRsvp(data) {
+    const response = await fetch('/api/rsvp', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+    });
+
+    const result = await response.json().catch(() => ({}));
+
+    if (!response.ok) {
+        throw new Error(result.error || 'Unable to submit your RSVP. Please try again.');
+    }
+
+    return result;
+}
