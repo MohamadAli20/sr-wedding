@@ -7,6 +7,7 @@ const links=[
     ['Our Story','story'],
     ['Wedding','wedding'],
     ['Gallery','gallery'],
+    ['Gift Registry','gifts'],
     ['RSVP','rsvp']
 ];
 
