@@ -1,6 +1,35 @@
 import { google } from 'googleapis';
+import { Ratelimit } from '@upstash/ratelimit';
+import { Redis } from '@upstash/redis';
 
 const allowedAttendance = new Set(['yes', 'no']);
+let rateLimiter;
+
+function getRateLimiter() {
+    if (!process.env.UPSTASH_REDIS_REST_URL || !process.env.UPSTASH_REDIS_REST_TOKEN) {
+        return null;
+    }
+
+    if (!rateLimiter) {
+        rateLimiter = new Ratelimit({
+            redis: Redis.fromEnv(),
+            limiter: Ratelimit.slidingWindow(3, '15 m'),
+            prefix: 'wedding:rsvp',
+            analytics: true,
+        });
+    }
+
+    return rateLimiter;
+}
+
+function getClientIp(req) {
+    const forwardedFor = req.headers['x-forwarded-for'];
+    const firstForwardedIp = Array.isArray(forwardedFor)
+        ? forwardedFor[0]
+        : forwardedFor?.split(',')[0];
+
+    return firstForwardedIp?.trim() || req.headers['x-real-ip'] || 'unknown';
+}
 
 function readBody(body) {
     if (typeof body === 'string') {
@@ -21,6 +50,29 @@ export default async function handler(req, res) {
     if (req.method !== 'POST') {
         res.setHeader('Allow', 'POST');
         return res.status(405).json({ error: 'Method not allowed.' });
+    }
+
+    const limiter = getRateLimiter();
+    if (!limiter) {
+        console.error('Upstash rate-limit environment variables are missing.');
+        return res.status(503).json({ error: 'RSVP service is temporarily unavailable.' });
+    }
+
+    try {
+        const limit = await limiter.limit(getClientIp(req));
+        res.setHeader('X-RateLimit-Limit', limit.limit);
+        res.setHeader('X-RateLimit-Remaining', Math.max(0, limit.remaining));
+
+        if (!limit.success) {
+            const retryAfterSeconds = Math.max(1, Math.ceil((limit.reset - Date.now()) / 1000));
+            res.setHeader('Retry-After', retryAfterSeconds);
+            return res.status(429).json({
+                error: 'Too many RSVP attempts. Please try again in a few minutes.',
+            });
+        }
+    } catch (error) {
+        console.error('Rate-limit check failed:', error.message);
+        return res.status(503).json({ error: 'RSVP service is temporarily unavailable.' });
     }
 
     const body = readBody(req.body);
