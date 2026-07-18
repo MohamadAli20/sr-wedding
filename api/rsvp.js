@@ -108,7 +108,7 @@ export default async function handler(req, res) {
         GOOGLE_SERVICE_ACCOUNT_EMAIL,
         GOOGLE_PRIVATE_KEY,
         GOOGLE_SHEET_TAB = 'RSVPs',
-        MAX_ATTENDEES = '1',
+        MAX_ATTENDEES = '65',
     } = process.env;
     const maxAttendees = Number.parseInt(MAX_ATTENDEES, 10);
     if (!GOOGLE_SHEET_ID || !GOOGLE_SERVICE_ACCOUNT_EMAIL || !GOOGLE_PRIVATE_KEY) {
