@@ -31,6 +31,17 @@ function getClientIp(req) {
     return firstForwardedIp?.trim() || req.headers['x-real-ip'] || 'unknown';
 }
 
+function getConfirmedGuestCount(rows) {
+    return rows.reduce((total, [attendance, guestCount]) => {
+        if (String(attendance).trim().toLowerCase() !== 'yes') {
+            return total;
+        }
+
+        const guests = Number.parseInt(guestCount, 10);
+        return total + (Number.isInteger(guests) && guests > 0 ? guests : 0);
+    }, 0);
+}
+
 function readBody(body) {
     if (typeof body === 'string') {
         try {
@@ -92,9 +103,21 @@ export default async function handler(req, res) {
         return res.status(400).json({ error: 'Please provide valid RSVP details.' });
     }
 
-    const { GOOGLE_SHEET_ID, GOOGLE_SERVICE_ACCOUNT_EMAIL, GOOGLE_PRIVATE_KEY, GOOGLE_SHEET_TAB = 'RSVPs' } = process.env;
+    const {
+        GOOGLE_SHEET_ID,
+        GOOGLE_SERVICE_ACCOUNT_EMAIL,
+        GOOGLE_PRIVATE_KEY,
+        GOOGLE_SHEET_TAB = 'RSVPs',
+        MAX_ATTENDEES = '1',
+    } = process.env;
+    const maxAttendees = Number.parseInt(MAX_ATTENDEES, 10);
     if (!GOOGLE_SHEET_ID || !GOOGLE_SERVICE_ACCOUNT_EMAIL || !GOOGLE_PRIVATE_KEY) {
         console.error('Google Sheets environment variables are missing.');
+        return res.status(500).json({ error: 'RSVP service is not configured yet.' });
+    }
+
+    if (!Number.isInteger(maxAttendees) || maxAttendees < 1) {
+        console.error('MAX_ATTENDEES is invalid.');
         return res.status(500).json({ error: 'RSVP service is not configured yet.' });
     }
 
@@ -105,10 +128,23 @@ export default async function handler(req, res) {
             scopes: ['https://www.googleapis.com/auth/spreadsheets'],
         });
         const sheets = google.sheets({ version: 'v4', auth });
+        const tabRange = `'${GOOGLE_SHEET_TAB.replace(/'/g, "''")}'`;
+
+        const existingRsvps = await sheets.spreadsheets.values.get({
+            spreadsheetId: GOOGLE_SHEET_ID,
+            range: `${tabRange}!E2:F`,
+        });
+        const confirmedGuests = getConfirmedGuestCount(existingRsvps.data.values || []);
+
+        if (confirmedGuests >= maxAttendees || (attendance === 'yes' && confirmedGuests + guests > maxAttendees)) {
+            return res.status(409).json({
+                error: `RSVP is now closed because all ${maxAttendees} seats have been reserved.`,
+            });
+        }
 
         await sheets.spreadsheets.values.append({
             spreadsheetId: GOOGLE_SHEET_ID,
-            range: `'${GOOGLE_SHEET_TAB.replace(/'/g, "''")}'!A:G`,
+            range: `${tabRange}!A:G`,
             valueInputOption: 'USER_ENTERED',
             requestBody: {
                 values: [[new Date().toISOString(), name, email, phone, attendance, guests, message]],

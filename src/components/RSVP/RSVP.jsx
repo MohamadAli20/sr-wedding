@@ -14,6 +14,7 @@ const initial = {
 export default function RSVP() {
     const [form, setForm] = useState(initial);
     const [status, setStatus] = useState('');
+    const [errorMessage, setErrorMessage] = useState('');
 
     const change = (e) =>
         setForm({
@@ -24,6 +25,7 @@ export default function RSVP() {
     async function submit(e) {
         e.preventDefault();
         setStatus('loading');
+        setErrorMessage('');
 
         try {
             await submitRsvp({
@@ -33,7 +35,8 @@ export default function RSVP() {
 
             setStatus('success');
             setForm(initial);
-        } catch {
+        } catch (error) {
+            setErrorMessage(error.message || 'Something went wrong. Please try again.');
             setStatus('error');
         }
     }
@@ -136,7 +139,7 @@ export default function RSVP() {
 
                 {status === 'error' && (
                     <p className="form-message error">
-                        Something went wrong. Please try again.
+                        {errorMessage}
                     </p>
                 )}
             </form>
