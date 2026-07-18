@@ -1,1 +1,20 @@
-import {FaInstagram} from 'react-icons/fa6'; import './Footer.css'; export default function Footer(){return <footer><p>“Together is a wonderful place to be.”</p><strong>Saifudin <i>&</i> Rea Mae</strong><a href="#home" aria-label="Instagram"><FaInstagram/></a><small>© 2026 · Made with love</small></footer>}
+import './Footer.css';
+
+export default function Footer() {
+    return (
+        <footer>
+            <p>&ldquo;Together is a wonderful place to be.&rdquo;</p>
+            <strong>Saifudin <i>&</i> Rea Mae</strong>
+            <small>&copy; 2026 &middot; Made with love</small>
+            <p className="developer-contact">
+                <a
+                    href="https://web.facebook.com/profile.php?id=61591840748292"
+                    target="_blank"
+                    rel="noreferrer"
+                >
+                    Need a wedding website? Contact the developer.
+                </a>
+            </p>
+        </footer>
+    );
+}

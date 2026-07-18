@@ -1,1 +1,58 @@
-footer{text-align:center;padding:4rem 1rem;background:#274D6D;color:#fff}footer p{font:1.6rem var(--font-heading);font-style:italic;margin:0 0 1.4rem}footer strong{font:2.5rem var(--font-script);font-weight:400;display:block}footer strong i{font-family:var(--font-heading);font-size:.6em;color:var(--color-primary-light)}footer a{display:inline-block;color:#fff;margin:1rem}footer small{display:block;color:#ffffffa8;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase}
+footer {
+    text-align: center;
+    padding: 4rem 1rem;
+    background: #274D6D;
+    color: #fff;
+}
+
+footer p {
+    font: 1.6rem var(--font-heading);
+    font-style: italic;
+    margin: 0 0 1.4rem;
+}
+
+footer strong {
+    font: 2.5rem var(--font-script);
+    font-weight: 400;
+    display: block;
+}
+
+footer strong i {
+    font-family: var(--font-heading);
+    font-size: .6em;
+    color: var(--color-primary-light);
+}
+
+footer a {
+    display: inline-block;
+    color: #fff;
+    margin: 1rem;
+}
+
+footer small {
+    display: block;
+    color: #ffffffa8;
+    font-size: .7rem;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+}
+
+.developer-contact {
+    font: 400 .78rem var(--font-body);
+    font-style: normal;
+    letter-spacing: .04em;
+    color: #ffffffc4;
+    margin: 1.25rem 0 0;
+}
+
+.developer-contact a {
+    color: inherit;
+    margin: 0;
+    text-decoration: underline;
+    text-underline-offset: .2em;
+}
+
+.developer-contact a:hover,
+.developer-contact a:focus-visible {
+    color: #fff;
+}
