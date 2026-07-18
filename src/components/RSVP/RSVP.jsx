@@ -8,6 +8,7 @@ const initial = {
     phone: '',
     attendance: 'yes',
     guests: '1',
+    guest2Name: '',
     message: '',
 };
 
@@ -16,11 +17,15 @@ export default function RSVP() {
     const [status, setStatus] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
 
-    const change = (e) =>
-        setForm({
-            ...form,
-            [e.target.name]: e.target.value,
-        });
+    const change = (e) => {
+        const { name, value } = e.target;
+
+        setForm((current) => ({
+            ...current,
+            [name]: value,
+            ...(name === 'guests' && value === '1' ? { guest2Name: '' } : {}),
+        }));
+    };
 
     async function submit(e) {
         e.preventDefault();
@@ -99,6 +104,18 @@ export default function RSVP() {
                         <option value="2">2</option>
                     </select>
                 </label>
+
+                {form.guests === '2' && (
+                    <label className="full">
+                        Second guest&apos;s name
+                        <input
+                            required
+                            name="guest2Name"
+                            value={form.guest2Name}
+                            onChange={change}
+                        />
+                    </label>
+                )}
 
                 <label className="full">
                     Will you attend?

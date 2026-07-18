@@ -88,6 +88,7 @@ export default async function handler(req, res) {
 
     const body = readBody(req.body);
     const name = clean(body.name, 120);
+    const guest2Name = clean(body.guest2Name, 120);
     const email = clean(body.email, 254).toLowerCase();
     const phone = clean(body.phone, 40);
     const message = clean(body.message, 1000);
@@ -101,6 +102,10 @@ export default async function handler(req, res) {
 
     if (!allowedAttendance.has(attendance) || !/^[12]$/.test(guestValue) || !Number.isInteger(guests)) {
         return res.status(400).json({ error: 'Please provide valid RSVP details.' });
+    }
+
+    if (guests === 2 && !guest2Name) {
+        return res.status(400).json({ error: 'Please provide the second guest\'s name.' });
     }
 
     const {
@@ -144,10 +149,15 @@ export default async function handler(req, res) {
 
         await sheets.spreadsheets.values.append({
             spreadsheetId: GOOGLE_SHEET_ID,
-            range: `${tabRange}!A:G`,
+            range: `${tabRange}!A:H`,
             valueInputOption: 'USER_ENTERED',
             requestBody: {
-                values: [[new Date().toISOString(), name, email, phone, attendance, guests, message]],
+                values: [
+                    [new Date().toISOString(), name, email, phone, attendance, guests, message, 'Primary guest'],
+                    ...(guests === 2
+                        ? [[new Date().toISOString(), guest2Name, '', '', attendance, '', '', `Guest of ${name}`]]
+                        : []),
+                ],
             },
         });
 
