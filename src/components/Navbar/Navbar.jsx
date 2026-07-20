@@ -6,6 +6,7 @@ const links=[
     ['Home','home'],
     ['Our Story','story'],
     ['Wedding','wedding'],
+    ['Entourage', 'entourage'],
     ['Gallery','gallery'],
     ['Gift Registry','gifts'],
     ['RSVP','rsvp']

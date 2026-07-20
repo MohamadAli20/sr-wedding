@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { FaMusic, FaPause } from "react-icons/fa";
 import "./MusicPlayer.css";
 
 export default function MusicPlayer() {
@@ -7,61 +8,45 @@ export default function MusicPlayer() {
     const [playing, setPlaying] = useState(false);
 
     useEffect(() => {
-        const saved = localStorage.getItem("music");
+        const audio = audioRef.current;
 
-        if (saved === "playing") {
-            const start = async () => {
-                try {
-                    await audioRef.current.play();
-                    setPlaying(true);
-                } catch {
-                    // Browser will require user interaction.
-                }
-            };
+        const saved = localStorage.getItem("musicPlaying");
 
-            start();
+        if (saved === "true") {
+            audio.play().catch(() => {});
+            setPlaying(true);
         }
     }, []);
 
-    const toggleMusic = async () => {
+    const toggleMusic = () => {
         if (!audioRef.current) return;
 
         if (playing) {
             audioRef.current.pause();
-            setPlaying(false);
-            localStorage.setItem("music", "paused");
+            localStorage.setItem("musicPlaying", "false");
         } else {
-            try {
-                await audioRef.current.play();
-                setPlaying(true);
-                localStorage.setItem("music", "playing");
-            } catch (err) {
-                console.error(err);
-            }
+            audioRef.current.play();
+            localStorage.setItem("musicPlaying", "true");
         }
+
+        setPlaying(!playing);
     };
 
     return (
         <>
             <audio
                 ref={audioRef}
+                src="/music/BeautifulInWhite.mp3"
                 loop
                 preload="auto"
-                src="/music/BeautifulInWhite.mp3"
             />
 
             <button
-                className="music-player"
+                className={`music-player ${playing ? "playing" : ""}`}
                 onClick={toggleMusic}
+                aria-label="Toggle Music"
             >
-                <span>♪</span>
-
-                <div>
-                    <strong>Music</strong>
-                    <small>
-                        {playing ? "Playing" : "Play"}
-                    </small>
-                </div>
+                {playing ? <FaPause /> : <FaMusic />}
             </button>
         </>
     );
