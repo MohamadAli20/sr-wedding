@@ -1,2 +1,111 @@
-@import url('https://fonts.googleapis.com/css2?family=Allura&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Lora:wght@400;500&display=swap');
-:root{--color-background:#F6F9FC;--color-surface:#E7EFF7;--color-card:#FFFFFF;--color-primary:#4F7CAC;--color-primary-light:#B9D2E8;--color-primary-dark:#315F89;--color-secondary:#6F95B8;--color-secondary-light:#C9D9E7;--color-secondary-dark:#557D9F;--color-accent:#9DBCD4;--color-gold:#8FAFC7;--color-text:#2E3E50;--color-text-light:#566B80;--color-text-muted:#8293A3;--color-border:#C5D4E0;--color-divider:#E1EAF1;--color-success:#477A8C;--color-error:#B56464;--shadow-sm:0 2px 8px rgba(46,62,80,.08);--shadow-md:0 6px 18px rgba(46,62,80,.12);--shadow-lg:0 12px 32px rgba(46,62,80,.18);--radius-md:16px;--radius-lg:24px;--font-heading:'Cormorant Garamond',serif;--font-body:'Lora',serif;--font-script:'Allura',cursive;--header-height:80px}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--color-background);color:var(--color-text);font-family:var(--font-body)}[id]{scroll-margin-top:calc(var(--header-height) + 1rem)}h1,h2,h3{font-family:var(--font-heading);font-weight:500}h2{margin:.4rem 0}em{font-family:var(--font-script);font-weight:400;color:var(--color-primary)}.section{padding:clamp(4.5rem,9vw,8rem) clamp(1.3rem,7vw,8rem)}.kicker{margin:0;color:var(--color-primary-dark);font-size:.7rem;letter-spacing:.2em;text-transform:uppercase}.button{display:inline-block;padding:.9rem 1.4rem;background:var(--color-primary);border:1px solid var(--color-primary);border-radius:999px;color:white;font:500 .72rem var(--font-body);letter-spacing:.12em;text-transform:uppercase;text-decoration:none;cursor:pointer;transition:.25s}.button:hover{background:var(--color-primary-dark);transform:translateY(-2px);box-shadow:var(--shadow-md)}.button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid var(--color-gold);outline-offset:3px}.button.ghost{background:transparent;color:var(--color-text);border-color:var(--color-border)}.button.ghost:hover{background:white}@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;animation-duration:.01ms!important;transition-duration:.01ms!important}}
+@import url("https://fonts.googleapis.com/css2?family=Allura&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Lora:wght@400;500&display=swap");
+:root {
+  --color-background: #f6f9fc;
+  --color-surface: #e7eff7;
+  --color-card: #ffffff;
+  --color-primary: #4f7cac;
+  --color-primary-light: #b9d2e8;
+  --color-primary-dark: #315f89;
+  --color-secondary: #6f95b8;
+  --color-secondary-light: #c9d9e7;
+  --color-secondary-dark: #557d9f;
+  --color-accent: #9dbcd4;
+  --color-gold: #8fafc7;
+  --color-text: #2e3e50;
+  --color-text-light: #566b80;
+  --color-text-muted: #8293a3;
+  --color-border: #c5d4e0;
+  --color-divider: #e1eaf1;
+  --color-success: #477a8c;
+  --color-error: #b56464;
+  --shadow-sm: 0 2px 8px rgba(46, 62, 80, 0.08);
+  --shadow-md: 0 6px 18px rgba(46, 62, 80, 0.12);
+  --shadow-lg: 0 12px 32px rgba(46, 62, 80, 0.18);
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --font-heading: "Cormorant Garamond", serif;
+  --font-body: "Lora", serif;
+  --font-script: "Allura", cursive;
+  --header-height: 80px;
+}
+* {
+  box-sizing: border-box;
+}
+html {
+  scroll-behavior: smooth;
+}
+body {
+  margin: 0;
+  background: var(--color-background);
+  color: var(--color-text);
+  font-family: var(--font-body);
+}
+[id] {
+  scroll-margin-top: calc(var(--header-height) + 1rem);
+}
+h1,
+h2,
+h3 {
+  font-family: var(--font-heading);
+  font-weight: 500;
+}
+h2 {
+  margin: 0.4rem 0;
+}
+em {
+  font-family: var(--font-script);
+  font-weight: 400;
+  color: var(--color-primary);
+}
+.section {
+  padding: clamp(4.5rem, 9vw, 8rem) clamp(1.3rem, 7vw, 8rem);
+}
+.kicker {
+  margin: 0;
+  color: var(--color-primary-dark);
+  font-size: 0.7rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+.button {
+  display: inline-block;
+  padding: 0.9rem 1.4rem;
+  background: var(--color-primary);
+  border: 1px solid var(--color-primary);
+  border-radius: 999px;
+  color: white;
+  font: 500 0.72rem var(--font-body);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  transition: 0.25s;
+}
+.button:hover {
+  background: var(--color-primary-dark);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+.button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 3px solid var(--color-gold);
+  outline-offset: 3px;
+}
+.button.ghost {
+  background: transparent;
+  color: var(--color-text);
+  border-color: var(--color-border);
+}
+.button.ghost:hover {
+  background: white;
+}
+@media (prefers-reduced-motion: reduce) {
+  * {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}

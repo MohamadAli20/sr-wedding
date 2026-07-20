@@ -1,1 +1,34 @@
-import {FaLocationArrow} from 'react-icons/fa6'; import './Map.css'; export default function Map(){const mapUrl=import.meta.env.VITE_GOOGLE_MAP_URL;const directions=mapUrl||'https://www.google.com/maps/search/?api=1&query=Villa+Blanca+Hotel,+13+Pattaui+Street,+Ugac+Norte,+Tuguegarao+City';return <section className="map"><div><p className="kicker">Find your way</p><h2>Villa Blanca <em>Hotel</em></h2><p>#13 Pattaui St., Ugac Norte<br/>Tuguegarao City</p><a className="button" href={directions} target="_blank" rel="noreferrer"><FaLocationArrow/> Get directions</a></div>{mapUrl&&<iframe title="Wedding venue map" src={mapUrl} loading="lazy"/>}</section>}
+import { FaLocationArrow } from "react-icons/fa6";
+import "./Map.css";
+export default function Map() {
+  const mapUrl = import.meta.env.VITE_GOOGLE_MAP_URL;
+  const directions =
+    mapUrl ||
+    "https://www.google.com/maps/search/?api=1&query=Villa+Blanca+Hotel,+13+Pattaui+Street,+Ugac+Norte,+Tuguegarao+City";
+  return (
+    <section className="map">
+      <div>
+        <p className="kicker">Find your way</p>
+        <h2>
+          Villa Blanca <em>Hotel</em>
+        </h2>
+        <p>
+          #13 Pattaui St., Ugac Norte
+          <br />
+          Tuguegarao City
+        </p>
+        <a
+          className="button"
+          href={directions}
+          target="_blank"
+          rel="noreferrer"
+        >
+          <FaLocationArrow /> Get directions
+        </a>
+      </div>
+      {mapUrl && (
+        <iframe title="Wedding venue map" src={mapUrl} loading="lazy" />
+      )}
+    </section>
+  );
+}
