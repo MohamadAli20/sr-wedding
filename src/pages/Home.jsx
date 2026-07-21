@@ -3,6 +3,7 @@ import Hero from "../components/Hero/Hero";
 import Countdown from "../components/Countdown/Countdown";
 import Story from "../components/Story/Story";
 import WeddingDetails from "../components/WeddingDetails/WeddingDetails";
+import Parents from "../components/Parents/Parents";
 import Entourage from "../components/Entourage/Entourage";
 import Gallery from "../components/Gallery/Gallery";
 import GiftRegistry from "../components/GiftRegistry/GiftRegistry";
@@ -18,6 +19,7 @@ export default function Home() {
         <Countdown />
         <Story />
         <WeddingDetails />
+        <Parents />
         <Entourage />
         <Gallery />
         <GiftRegistry />
