@@ -5,54 +5,89 @@ footer {
     color: #fff;
 }
 
+/* Quote */
 footer p {
     font: 1.6rem var(--font-heading);
     font-style: italic;
     margin: 0 0 1.4rem;
 }
 
-footer strong {
+/* Couple Name */
+.couple-name {
+    display: block;
     font: 2.5rem var(--font-script);
     font-weight: 400;
-    display: block;
 }
 
-footer strong i {
+.couple-name i {
     font-family: var(--font-heading);
     font-size: .6em;
     color: var(--color-primary-light);
 }
 
-footer a {
-    display: inline-block;
-    color: #fff;
-    margin: 1rem;
-}
-
-footer small {
+/* Copyright */
+.copyright {
     display: block;
-    color: #ffffffa8;
-    font-size: .7rem;
+    margin-top: .8rem;
+    color: rgba(255,255,255,.65);
+    font-size: .72rem;
     letter-spacing: .12em;
     text-transform: uppercase;
 }
 
+/* Developer Section */
 .developer-contact {
-    font: 400 .78rem var(--font-body);
-    font-style: normal;
-    letter-spacing: .04em;
-    color: #ffffffc4;
-    margin: 1.25rem 0 0;
+    margin-top: 2rem;
+}
+
+.developer-label {
+    display: block;
+    margin-bottom: .5rem;
+    font-size: .68rem;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,.55);
+    font-family: var(--font-body);
 }
 
 .developer-contact a {
-    color: inherit;
-    margin: 0;
-    text-decoration: underline;
-    text-underline-offset: .2em;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: .45rem;
+
+    color: rgba(255,255,255,.78);
+    text-decoration: none;
+    font-family: var(--font-body);
+    font-size: .85rem;
+
+    transition: all .3s ease;
 }
 
-.developer-contact a:hover,
-.developer-contact a:focus-visible {
+.developer-contact a:hover {
+    color: #fff;
+}
+
+.developer-name {
+    font-weight: 600;
+    color: #fff;
+}
+
+.developer-role {
+    color: rgba(255,255,255,.75);
+}
+
+.developer-divider {
+    color: rgba(255,255,255,.35);
+}
+
+.developer-portfolio {
+    color: var(--color-primary-light);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+.developer-contact a:hover .developer-portfolio {
     color: #fff;
 }

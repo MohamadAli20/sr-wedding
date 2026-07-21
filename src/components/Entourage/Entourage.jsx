@@ -16,8 +16,7 @@ const sections = [
             "Mr. and Mrs. Joaquin Gerena",
             "Mr. and Mrs. Strauss Tobias",
             "Mr. and Mrs. Cornelio Lomboy",
-            "Mrs. Violy Saquing",
-            "Mrs. Aida Batang",
+            "Mrs. Violy Saquing"
         ],
     },
     {
@@ -25,11 +24,11 @@ const sections = [
         duo: {
             left: {
                 title: "Maid of Honor",
-                name: "Eva Marie Taguiam",
+                name: "Eva Marie Balatico",
             },
             right: {
                 title: "Best Man",
-                name: "TBA",
+                name: "Khomeni Calanda"
             },
         },
     },
@@ -42,7 +41,7 @@ const sections = [
                 role: "Veil",
             },
             {
-                bride: "Zheia Elaiza Blancad",
+                bride: "Zhea Elaiza Blancad",
                 groom: "Elvin James Pamittan",
                 role: "Candle",
             },

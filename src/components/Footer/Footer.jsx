@@ -4,17 +4,36 @@ export default function Footer() {
     return (
         <footer>
             <p>&ldquo;Together is a wonderful place to be.&rdquo;</p>
-            <strong>Saifudin <i>&</i> Rea Mae</strong>
-            <small>&copy; 2026 &middot; Made with love</small>
-            <p className="developer-contact">
+
+            <strong className="couple-name">
+                Saifudin <i>&</i> Rea Mae
+            </strong>
+
+            <small className="copyright">
+                &copy; 2026 &middot; Made with love
+            </small>
+
+            <div className="developer-contact">
+                <span className="developer-label">
+                    Designed &amp; Developed by
+                </span>
+
                 <a
-                    href="https://web.facebook.com/profile.php?id=61591840748292"
+                    href="https://mohamadali20.github.io/ali-calanda-portfolio"
                     target="_blank"
                     rel="noreferrer"
                 >
-                    Need a wedding website? Contact the developer.
+                    <span className="developer-name">Ali Calanda</span>
+                    <span className="developer-divider">•</span>
+                    <span className="developer-role">
+                        Full Stack Developer
+                    </span>
+                    <span className="developer-divider">•</span>
+                    <span className="developer-portfolio">
+                        View Portfolio ↗
+                    </span>
                 </a>
-            </p>
+            </div>
         </footer>
     );
 }
